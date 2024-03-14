@@ -6,6 +6,7 @@ package pbo2_meet1;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -182,6 +183,10 @@ public class Pbo2_meet2_latihan6 extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        if(!validation()) {
+            return;
+        }
+        
         DefaultTableModel dataModel = (DefaultTableModel) itemTable.getModel();
         List list = new ArrayList<>();
         
@@ -209,6 +214,35 @@ public class Pbo2_meet2_latihan6 extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnClearActionPerformed
 
+    public boolean validation() {
+        String code = codeField.getText();
+        String name = nameField.getText();
+        
+        if (code.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill in the item code");
+            return false;
+        }
+        
+        if (name.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill in the item name");
+            return false;
+        }
+        
+        int selectedIndex = unitComboBox.getSelectedIndex();
+        if (selectedIndex == 0) {
+            JOptionPane.showMessageDialog(this, "Please select the item unit");
+            return false;
+        }
+        
+        try {
+            Integer.valueOf(qtyField.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please select the item unit");
+            return false;
+        }
+        
+        return true;
+    }
     /**
      * @param args the command line arguments
      */
